@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#calculator-container,
+#calculator {
+    border: 1px solid red;
+}
+
+#calculator {
+    width: 500px;
+}
+
+#calculator-display {
+    border: 1px solid blue;
+    height: 30px;
+}
+
+.calculator-buttons > ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+button {
+    width: 6rem;
+    height: 3rem;
+}
