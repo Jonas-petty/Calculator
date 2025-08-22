@@ -1,6 +1,9 @@
-// let valueA = +prompt("Value a: ");
-// let valueB = +prompt("Value b: ");
-// let operator = prompt("operation: ");
+const display = document.querySelector("#calculator-display");
+const buttons = document.querySelectorAll(".button");
+let valueA;
+let valueB;
+let operator;
+let operatorCounter = 0;
 
 function sum(a, b) {
     return a + b;
@@ -18,7 +21,7 @@ function divide(a, b) {
     return a / b;
 }
 
-function operation(a, b, operation) {
+function operate(a, b, operation) {
     switch (operation) {
         case "+":
             return sum(a, b);
@@ -37,8 +40,19 @@ function operation(a, b, operation) {
     }
 }
 
-let valueA = +prompt("Value a: ");
-let valueB = +prompt("Value b: ");
-let operator = prompt("operation: ");
+buttons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        console.log(operatorCounter);
 
-alert(operation(valueA, valueB, operator));
+        if (operatorCounter > 0) {
+            const displayContent = display.textContent;
+            let operation = displayContent.split("+");
+            console.log(operation);
+        }
+        const buttonSelected = event.target.textContent.trim();
+
+        if ("+-/*".includes(buttonSelected)) operatorCounter++;
+
+        display.textContent += buttonSelected;
+    });
+});

@@ -21,18 +21,55 @@
 }
 
 #calculator-display {
+    font-size: 3rem;
+    text-align: right;
     border: 1px solid blue;
-    height: 30px;
+    height: 4rem;
 }
 
-.calculator-buttons > ul {
+ul {
     list-style-type: none;
+}
+
+#calculator-buttons {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 1rem;
+}
+
+#number-buttons {
+    flex: 3;
+}
+
+#number-buttons li {
+    flex: 1;
+}
+
+#operation-buttons li {
+    flex: 1;
+}
+
+#operation-buttons {
+    flex: 1;
+}
+
+#number-buttons > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+#operation-buttons > ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
 }
 
 button {
-    width: 6rem;
+    cursor: pointer;
+    width: 100%;
+    min-width: 6rem;
     height: 3rem;
 }
