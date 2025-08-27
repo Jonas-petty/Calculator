@@ -1,58 +1,52 @@
 const display = document.querySelector("#calculator-display");
 const buttons = document.querySelectorAll(".button");
-let valueA;
-let valueB;
-let operator;
-let operatorCounter = 0;
 
-function sum(a, b) {
-    return a + b;
-}
+const OPERATORS = "+-/*=";
+const EQUALS = "=";
 
-function subtract(a, b) {
-    return a - b;
-}
+let firstValue = 0;
+let operator = null;
+let waitingSecond = false;
+let lastSecondValue = 0;
 
-function multiply(a, b) {
-    return a * b;
-}
+document.addEventListener("DOMContentLoaded", () => {
+    updateDisplay("0");
+});
 
-function divide(a, b) {
-    return a / b;
-}
+// operations
+const operations = {
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
+    "*": (a, b) => a * b,
+    "/": (a, b) => (a === 0 || b === 0 ? "Error" : a / b),
+};
 
 function operate(a, b, operation) {
-    switch (operation) {
-        case "+":
-            return sum(a, b);
-            break;
-        case "-":
-            return subtract(a, b);
-            break;
-        case "*":
-            return multiply(a, b);
-            break;
-        case "/":
-            return divide(a, b);
-            break;
-        default:
-            return "Value invalid";
+    if (!operations[operation]) return "Invalid";
+    return operations[operation](a, b);
+}
+
+function updateDisplay(value) {
+    display.textContent = `${value}`;
+}
+
+function appendDisplay(value) {
+    if (display.textContent == "0") {
+        display.textContent = `${value}`;
+    } else {
+        display.textContent += `${value}`;
     }
 }
 
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
-        console.log(operatorCounter);
-
-        if (operatorCounter > 0) {
-            const displayContent = display.textContent;
-            let operation = displayContent.split("+");
-            console.log(operation);
+        const pressedButton = event.target.textContent.trim();
+        if (pressedButton == "AC") {
+            updateDisplay("0");
+        } else {
+            appendDisplay(pressedButton);
+            firstValue = Number(display.textContent.trim());
+            console.log(firstValue);
         }
-        const buttonSelected = event.target.textContent.trim();
-
-        if ("+-/*".includes(buttonSelected)) operatorCounter++;
-
-        display.textContent += buttonSelected;
     });
 });

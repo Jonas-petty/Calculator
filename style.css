@@ -21,6 +21,8 @@
 }
 
 #calculator-display {
+    overflow: hidden;
+    overflow-X: auto;
     font-size: 3rem;
     text-align: right;
     border: 1px solid blue;
