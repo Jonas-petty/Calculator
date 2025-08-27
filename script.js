@@ -76,7 +76,6 @@ buttons.forEach((button) => {
                 waitingSecond
                     ? (secondValue = Number(display.textContent.trim()))
                     : (firstValue = Number(display.textContent.trim()));
-
             }
         }
     });
