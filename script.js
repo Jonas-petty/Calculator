@@ -55,9 +55,13 @@ buttons.forEach((button) => {
             reset();
         } else {
             if (OPERATORS.includes(pressedButton)) {
-                if (pressedButton === "=") {
+                if ((firstValue && secondValue) || pressedButton === "=") {
                     const result = operate(firstValue, secondValue, operator);
                     updateDisplay(result);
+                    firstValue = result;
+                    secondValue = 0;
+                    operator = pressedButton;
+                    cleanDisplay = true;
                 } else {
                     operator = pressedButton;
                     waitingSecond = true;
@@ -68,13 +72,11 @@ buttons.forEach((button) => {
                     updateDisplay("0");
                     cleanDisplay = false;
                 }
-
                 appendDisplay(pressedButton);
                 waitingSecond
                     ? (secondValue = Number(display.textContent.trim()))
                     : (firstValue = Number(display.textContent.trim()));
 
-                console.log(firstValue, secondValue, operator);
             }
         }
     });
