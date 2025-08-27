@@ -5,9 +5,10 @@ const OPERATORS = "+-/*=";
 const EQUALS = "=";
 
 let firstValue = 0;
+let secondValue = 0;
 let operator = null;
 let waitingSecond = false;
-let lastSecondValue = 0;
+let cleanDisplay = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     updateDisplay("0");
@@ -38,15 +39,43 @@ function appendDisplay(value) {
     }
 }
 
+function reset() {
+    firstValue = 0;
+    secondValue = 0;
+    operator = null;
+    waitingSecond = false;
+    cleanDisplay = false;
+}
+
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
         const pressedButton = event.target.textContent.trim();
         if (pressedButton == "AC") {
             updateDisplay("0");
+            reset();
         } else {
-            appendDisplay(pressedButton);
-            firstValue = Number(display.textContent.trim());
-            console.log(firstValue);
+            if (OPERATORS.includes(pressedButton)) {
+                if (pressedButton === "=") {
+                    const result = operate(firstValue, secondValue, operator);
+                    updateDisplay(result);
+                } else {
+                    operator = pressedButton;
+                    waitingSecond = true;
+                    cleanDisplay = true;
+                }
+            } else {
+                if (cleanDisplay && display.textContent != "0") {
+                    updateDisplay("0");
+                    cleanDisplay = false;
+                }
+
+                appendDisplay(pressedButton);
+                waitingSecond
+                    ? (secondValue = Number(display.textContent.trim()))
+                    : (firstValue = Number(display.textContent.trim()));
+
+                console.log(firstValue, secondValue, operator);
+            }
         }
     });
 });
