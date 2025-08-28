@@ -48,6 +48,8 @@ function reset() {
 }
 
 function validate(pressedButton) {
+    if (".".includes(pressedButton) && (display.textContent.includes(pressedButton) || display.textContent === "0")) return
+
     if (pressedButton == "AC") {
         updateDisplay("0");
         reset();
