@@ -32,20 +32,17 @@
 
 #calculator {
     background-color: var(--secondary-color);
+    width: 450px;
     border: 1px solid var(--border-color);
     border-radius: 1rem;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.384);
-}
-
-#calculator {
-    width: 450px;
 }
 
 #calculator-display {
     background-color: #191d24;
     overflow: hidden;
     overflow-x: auto;
-    scrollbar-width: .5rem;
+    scrollbar-width: 0.5rem;
     scrollbar-color: var(--number-keys-hover) var(--border-color);
     font-size: 3rem;
     padding: 1rem;
@@ -122,4 +119,16 @@ button.delete {
 
 button.equals {
     background-color: var(--highlight-color);
+}
+
+/* Mobile */
+@media (max-width: 767.98px) {
+    #calculator {
+        margin: 1rem;
+    }
+
+    button {
+        min-width: 4rem;
+        height: 4rem;
+    }
 }
