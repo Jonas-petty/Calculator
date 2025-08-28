@@ -47,36 +47,48 @@ function reset() {
     cleanDisplay = false;
 }
 
+function validate(pressedButton) {
+    if (pressedButton == "AC") {
+        updateDisplay("0");
+        reset();
+    } else {
+        if (OPERATORS.includes(pressedButton)) {
+            if ((firstValue && secondValue) || pressedButton === "=") {
+                const result = operate(firstValue, secondValue, operator);
+                updateDisplay(result);
+                firstValue = result;
+                secondValue = 0;
+                operator = pressedButton;
+                cleanDisplay = true;
+            } else {
+                operator = pressedButton;
+                waitingSecond = true;
+                cleanDisplay = true;
+            }
+        } else {
+            if (cleanDisplay && display.textContent != "0") {
+                updateDisplay("0");
+                cleanDisplay = false;
+            }
+            appendDisplay(pressedButton);
+            waitingSecond
+                ? (secondValue = Number(display.textContent.trim()))
+                : (firstValue = Number(display.textContent.trim()));
+        }
+    }
+}
+
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
         const pressedButton = event.target.textContent.trim();
-        if (pressedButton == "AC") {
-            updateDisplay("0");
-            reset();
-        } else {
-            if (OPERATORS.includes(pressedButton)) {
-                if ((firstValue && secondValue) || pressedButton === "=") {
-                    const result = operate(firstValue, secondValue, operator);
-                    updateDisplay(result);
-                    firstValue = result;
-                    secondValue = 0;
-                    operator = pressedButton;
-                    cleanDisplay = true;
-                } else {
-                    operator = pressedButton;
-                    waitingSecond = true;
-                    cleanDisplay = true;
-                }
-            } else {
-                if (cleanDisplay && display.textContent != "0") {
-                    updateDisplay("0");
-                    cleanDisplay = false;
-                }
-                appendDisplay(pressedButton);
-                waitingSecond
-                    ? (secondValue = Number(display.textContent.trim()))
-                    : (firstValue = Number(display.textContent.trim()));
-            }
-        }
+        validate(pressedButton);
     });
 });
+
+document.addEventListener("keypress", (event) => {
+    const pressedButton = event.key.trim();
+    if ("1234567890".includes(pressedButton)) {
+        validate(pressedButton);
+    }
+});
+1
